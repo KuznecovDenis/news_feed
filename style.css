@@ -62,6 +62,10 @@ body {
     cursor: pointer;
 }
 
+.header__navigation .navigation__link {
+    color: var(--color-primary);
+}
+
 .header__navigation .navigation__link--active,
 .header__navigation .navigation__link:hover {
     color: var(--color-accent);
@@ -74,10 +78,6 @@ body {
 
 .header__navigation .navigation__list {
     grid-column: 5/-1;
-}
-
-.header__navigation .navigation__link {
-    color: var(--color-primary);
 }
 
 .articles {
@@ -132,6 +132,7 @@ body {
     grid-column: span 3;
     min-height: 185px;
     max-height: 344px;
+    overflow: hidden;
 }
 
 .main-article__content {
