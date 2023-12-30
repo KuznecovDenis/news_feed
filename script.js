@@ -12,98 +12,70 @@ const smallNewsContainer = document.querySelector('.articles__small-column')
         <div class="main-article__image-container">
             <img class="main-article__image" src="./images/image.jpg" alt="Фото новости">
         </div>
-        <div className="main-article__content">
-            <span className="article-category main-article__category">Технологии</span>
-            <h2 className="main-article__title">Вещи, которые нужно знать перед стажировкой в IT сфере</h2>
-            <p className="main-article__text">Уличные музыканты продолжают радовать фанатов стрит арта. Для этого они исполняют привычные мелодии в новом формате!</p>
-            <span className="article-source main-article__source">Источник</span>
+        <div class="main-article__content">
+            <span class="article-category main-article__category">Технологии</span>
+            <h2 class="main-article__title">Вещи, которые нужно знать перед стажировкой в IT сфере</h2>
+            <p class="main-article__text">Уличные музыканты продолжают радовать фанатов стрит арта. Для этого они исполняют привычные мелодии в новом формате!</p>
+            <span class="article-source main-article__source">Источник</span>
         </div>
     </article>
 </template>*/
 
 /*<template id="small-article-item">
-    <article className="small-article">
-        <h2 className="small-article__title">В американском зоопарке празднуют рождение гориллы: видео</h2>
-        <p className="small-article__caption">
-            <span className="article-date small-article__date">12 июля</span>
-            <span className="article-source small-article__source">Источник</span>
+    <article class="small-article">
+        <h2 class="small-article__title">В американском зоопарке празднуют рождение гориллы: видео</h2>
+        <p class="small-article__caption">
+            <span class="article-date small-article__date">12 июля</span>
+            <span class="article-source small-article__source">Источник</span>
         </p>
     </article>
 </template> */
 
-function createMainNewsItem (item) {
+
+mainNews.forEach(item => {
     const categoryData = data.categories.find(itemCategory => itemCategory.id === item.category_id)
     const sourceData = data.sources.find(itemSource => itemSource.id === item.source_id)
 
+    const template = document.createElement('template')
 
-    const article = document.createElement('article')
-    const imageContainer = document.createElement('div')
-    const image = document.createElement('img')
-    const content = document.createElement('div')
-    const category = document.createElement('span')
-    const title = document.createElement('h2')
-    const description = document.createElement('p')
-    const source = document.createElement('span')
+    template.innerHTML = `
+        <article class="main-article">
+            <div class="main-article__image-container">
+                <img class="main-article__image" src="${item.image}" alt="${item.title}">
+            </div>
+            <div class="main-article__content">
+                <span class="article-category main-article__category">${categoryData.name}</span>
+                <h2 class="main-article__title">${item.title}</h2>
+                <p class="main-article__text">${item.description}</p>
+                <span class="article-source main-article__source">${sourceData.name}</span>
+            </div>
+        </arti
+    `
 
-    imageContainer.appendChild(image)
-    article.appendChild(imageContainer)
-    content.appendChild(category)
-    content.appendChild(title)
-    content.appendChild(description)
-    content.appendChild(source)
-    article.appendChild(content)
-
-    article.classList.add('main-article')
-    imageContainer.classList.add('main-article__image-container')
-    image.classList.add('main-article__image')
-    content.classList.add('main-article__content')
-    category.classList.add('article-category', 'main-article__category')
-    title.classList.add('main-article__title')
-    description.classList.add('main-article__text')
-    source.classList.add('article-source', 'main-article__source')
-
-    title.textContent = item.title
-    description.textContent = item.description
-    image.src = item.image
-    category.textContent = categoryData.name
-    source.textContent = sourceData.name
-
-    return article
-}
-
-mainNews.forEach(item => {
-    mainNewsContainer.appendChild(createMainNewsItem(item))
+    mainNewsContainer.appendChild(template.content)
 })
 
-function createSmallNewsItem (item) {
+smallNews.forEach(item => {
     const sourceData = data.sources.find(itemSource => itemSource.id === item.source_id)
     const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'})
 
-    const article = document.createElement('article')
-    const title = document.createElement('h2')
-    const content = document.createElement('p')
-    const date = document.createElement('span')
-    const source = document.createElement('span')
+    const template = document.createElement('template')
 
-    article.appendChild(title)
-    content.appendChild(date)
-    content.appendChild(source)
-    article.appendChild(content)
+    template.innerHTML = `
+         <article class="small-article">
+            <h2 class="small-article__title">${item.title}</h2>
+            <p class="small-article__caption">
+                <span class="article-date small-article__date">${dateData}</span>
+                <span class="article-source small-article__source">${sourceData.name}</span>
+            </p>
+        </article>
+    `
 
-    article.classList.add('small-article')
-    title.classList.add('small-article__title')
-    content.classList.add('small-article__caption')
-    date.classList.add('article-date', 'small-article__date')
-    source.classList.add('article-source', 'small-article__source')
-
-
-    title.textContent = item.title
-    source.textContent = sourceData.name
-    date.textContent = dateData
-
-    return article
-}
-
-smallNews.forEach(item => {
-    smallNewsContainer.appendChild(createSmallNewsItem(item))
+    smallNewsContainer.appendChild(template.content)
 })
+
+// минус в данном способе html инъекции мы можем заэнкодить строку,
+// но при этом если нам бэк сам присылает например готовую разметку для каких-то вариантов текста или элементов,
+// то мы его разметку заэнкодим.
+
+// как заэнкодить код в js https://gomakethings.com/how-to-encode-strings-with-vanilla-js-to-reduce-the-risk-of-xss-attacks/
