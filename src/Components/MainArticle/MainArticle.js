@@ -1,4 +1,5 @@
-
+import React from "react";
+import './MainArticle.css';
 
 export const MainArticle = ({image, title, category, description, source}) => {
     return (

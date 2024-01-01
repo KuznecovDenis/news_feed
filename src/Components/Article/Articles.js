@@ -1,5 +1,7 @@
-import {MainArticle} from "./MainArticle.js";
-import {SmallArticle} from "./SmallArticle.js";
+import React from "react";
+import './Article.css';
+import {MainArticle} from "../MainArticle/MainArticle.js";
+import {SmallArticle} from "../SmallArticle/SmallArticle.js";
 
 export const Articles = ({articles}) => {
     return (
