@@ -1,16 +1,24 @@
 import React from "react";
 import './App.css'
-import {Articles} from "../Article/Articles.js";
+import {Articles} from "../Articles/Articles.js";
 import {Navigation} from "../Navigation/Navigation.js";
 import {categoryId} from "../../utils.js";
+import {Article} from "../Article/Article";
 
 export const App = () => {
+    const [articleId, setArticleId] = React.useState(null)
     const [category, setCategory] = React.useState('index')
     const [articles, setArticles] = React.useState({ items: [], categories: [], sources: []})
 
     const onClickNav = (e) => {
         e.preventDefault()
         setCategory(e.currentTarget.dataset.href)
+        setArticleId(null)
+    }
+
+    const onArticleClick = (id) => {
+        console.log(id)
+        setArticleId(id)
     }
 
     React.useEffect(() => {
@@ -34,7 +42,7 @@ export const App = () => {
                 </div>
             </header>
             <main className="main">
-                <Articles articles={articles}/>
+                {articleId !== null ? <Article /> : <Articles articles={articles} onArticleClick={onArticleClick}/>}
             </main>
             <footer className="footer">
                 <div className="container">

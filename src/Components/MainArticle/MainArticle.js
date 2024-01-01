@@ -1,9 +1,9 @@
 import React from "react";
 import './MainArticle.css';
 
-export const MainArticle = ({image, title, category, description, source}) => {
+export const MainArticle = ({id, image, title, category, description, source, onArticleClick}) => {
     return (
-        <article className="main-article">
+        <article className="main-article" onClick={() => onArticleClick(id)}>
             <div className="main-article__image-container">
                 <img className="main-article__image" src={image} alt={title}/>
             </div>
