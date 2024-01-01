@@ -19,7 +19,6 @@ lerna-debug.log*
 .idea
 .idea_modules
 .history
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
