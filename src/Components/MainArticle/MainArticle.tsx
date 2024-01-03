@@ -1,7 +1,18 @@
-import React from "react";
+import React, {FC} from "react";
 import './MainArticle.css';
+import {Article} from "../../types";
 
-export const MainArticle = ({id, image, title, category, description, source, onArticleClick}) => {
+interface Props extends Article{
+    id: number;
+    title: string;
+    image: string;
+    category: string;
+    description: string;
+    source: string;
+    onArticleClick: (id:number) => void
+}
+
+export const MainArticle: FC<Props> = ({id, image, title, category, description, source, onArticleClick}) => {
     return (
         <article className="main-article" onClick={() => onArticleClick(id)}>
             <div className="main-article__image-container">

@@ -3,11 +3,14 @@ const path = require('path')
 
 module.exports = {
     mode: process.env.NODE_ENV || 'production',
-    entry: './src/script.js',
+    entry: '/src/script.tsx',
     output: {
         path: path.resolve( __dirname, 'dist'),
         filename: 'bundle.[contenthash].js',
         clean: true,
+    },
+    resolve: {
+        extensions: ['.jsx', '.tsx', '.ts', '.js', '.json', '.wasm', '...'],
     },
     devServer: {
         open: true,
@@ -15,7 +18,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(?:js|mjs|cjs)$/,
+                test: /\.(ts|tsx)?$/,
+                exclude: /node_modules/,
+                use: 'ts-loader',
+            },
+            {
+                test: /\.(?:js|mjs|cjs|jsx)$/,
                 exclude: /node_modules/,
                 use: ["babel-loader"]
             },
@@ -26,7 +34,7 @@ module.exports = {
             {
                 test: /\.svg$/i,
                 type: 'asset/resource',
-            }
+            },
         ],
 
     },

@@ -1,19 +1,28 @@
-import React from "react";
+import React, {FC} from "react";
 import './Articles.css';
-import {MainArticle} from "../MainArticle/MainArticle.js";
-import {SmallArticle} from "../SmallArticle/SmallArticle.js";
+import {MainArticle} from "../MainArticle/MainArticle";
+import {SmallArticle} from "../SmallArticle/SmallArticle";
+import {NewsAPI} from "../../types";
 
-export const Articles = ({articles, onArticleClick}) => {
+interface Props {
+    articles: NewsAPI,
+    onArticleClick: (id: number) => void
+}
+
+export const Articles: FC<Props> = ({articles, onArticleClick}) => {
     return (
             <section className="articles">
                 <div className="container grid">
                     <section className="articles__big-column">
                         {articles.items.slice(0, 3).map(item => {
+                            const category = articles.categories.find(({id}) => item.category_id === id)
+                            const source = articles.sources.find(({id}) => item.source_id === id)
+
                             return <MainArticle
                                 onArticleClick={onArticleClick}
                                 key={item.id}
-                                category={articles.categories.find(({id}) => item.category_id === id).name}
-                                source={articles.sources.find(({id}) => item.source_id === id).name}
+                                category={ category ? category.name : ''}
+                                source={source?.name || ''}
                                 {...item}
                             />})
                         }
@@ -21,10 +30,12 @@ export const Articles = ({articles, onArticleClick}) => {
 
                     <section className="articles__small-column">
                         {articles.items.slice(3, 12).map(item => {
+                            const source = articles.sources.find(({id}) => item.source_id === id)
+
                             return  <SmallArticle
                                 onArticleClick={onArticleClick}
                                 key={item.id}
-                                source={articles.sources.find(({id}) => item.source_id === id).name}
+                                source={source?.name || ''}
                                 {...item}
                             />})
                         }
