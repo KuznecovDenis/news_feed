@@ -1,8 +1,7 @@
 import React, {FC} from "react";
 import './MainArticle.css';
-import {Article} from "../../types";
 
-interface Props extends Article{
+interface Props {
     id: number;
     title: string;
     image: string;

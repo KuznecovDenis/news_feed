@@ -3,7 +3,7 @@ import './App.css'
 import {Articles} from "../Articles/Articles";
 import {Navigation} from "../Navigation/Navigation";
 import {categoryId} from "../../utils";
-import {Article} from "../Article/Article";
+import {ArticleItem} from "../ArticleItem/ArticleItem";
 import {NewsAPI} from "../../types";
 
 export const App = () => {
@@ -46,7 +46,7 @@ export const App = () => {
                 </div>
             </header>
             <main className="main">
-                {articleId !== null ? <Article /> : <Articles articles={articles} onArticleClick={onArticleClick}/>}
+                {articleId !== null ? <ArticleItem id={articleId} categories={articles.categories} sources={articles.sources} onArticleClick={onArticleClick}/> : <Articles articles={articles} onArticleClick={onArticleClick}/>}
             </main>
             <footer className="footer">
                 <div className="container">

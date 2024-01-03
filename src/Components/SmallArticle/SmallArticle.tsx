@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import './SmallArticle.css';
+import {beautifyDate} from "../../utils";
 
 interface Props {
     id: number,
@@ -14,10 +15,7 @@ export const SmallArticle: FC<Props> = ({id, title, date, source, onArticleClick
             <h2 className="small-article__title">{title}</h2>
             <p className="small-article__caption">
                 <span className="article-date small-article__date">
-                    {new Date(date).toLocaleDateString('ru-RU', {
-                        month: 'long',
-                        day: 'numeric'})
-                    }
+                    {beautifyDate(date)}
                 </span>
                 <span className="article-source small-article__source">
                     {source}

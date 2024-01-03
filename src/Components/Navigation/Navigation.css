@@ -1,3 +1,7 @@
+.navigation__logo {
+    cursor: pointer;
+}
+
 .navigation__image {
     width: 100%;
 }

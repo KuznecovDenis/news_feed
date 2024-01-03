@@ -13,3 +13,10 @@ export const categoryId = {
     'politics' : 4,
     'sport' : 2
 }
+
+export const beautifyDate = (date: string): string => {
+    return new Date(date).toLocaleDateString('ru-RU', {
+        month: 'long',
+        day: 'numeric'
+    });
+}
