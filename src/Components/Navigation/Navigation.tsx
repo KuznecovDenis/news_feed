@@ -25,7 +25,6 @@ export const Navigation: FC<Props> = ({onClickNav, currentCategory, className = 
                             data-href={item}
                             className={`navigation__link ${currentCategory === item ? 'navigation__link--active' : '' }`}
                         >
-                            {/*@ts-ignore*/}
                             {categoryName[item]}
                         </a>
                     </li>

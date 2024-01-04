@@ -20,18 +20,18 @@ export const App = () => {
     }
 
     const onArticleClick = (id: number) => {
-        console.log(id)
         setArticleId(id)
     }
 
     React.useEffect(() => {
-        // @ts-ignore
         fetch('https://frontend.karpovcourses.net/api/v2/ru/news/' + (categoryId[category] || ''))
             .then(response => response.json())
             .then((resData: NewsAPI) => {
                 setArticles(resData)
             })
-            .catch(e => console.log(e))
+            .catch(e => {
+                throw new Error(e)
+            })
     }, [category])
 
     return (

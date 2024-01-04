@@ -1,4 +1,4 @@
-export const categoryName = {
+export const categoryName: {[index: string]: string} = {
     'index' : 'главная',
     'fashion' : 'Мода',
     'tech' : 'технологии',
@@ -6,7 +6,7 @@ export const categoryName = {
     'sport' : 'спорт'
 }
 
-export const categoryId = {
+export const categoryId: {[index: string]: number} = {
     'index' : 0,
     'fashion' : 3,
     'tech' : 1,

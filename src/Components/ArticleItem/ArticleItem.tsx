@@ -20,14 +20,18 @@ export const ArticleItem: FC<Props> = ({id, categories, sources, onArticleClick}
         fetch(`https://frontend.karpovcourses.net/api/v2/news/full/${id}`)
             .then(response => response.json())
             .then(setArticleItem)
-            .catch(e => console.log(e))
+            .catch(e => {
+                throw new Error(e)
+            })
 
         fetch(`https://frontend.karpovcourses.net/api/v2/news/related/${id}?count=9`)
             .then(response => response.json())
             .then((response: RelatedArticlesAPI) => {
                 setRelatedArticles(response.items);
             })
-            .catch(e => console.log(e))
+            .catch(e => {
+                throw new Error(e)
+            })
     }, [id])
 
     if (articleItem === null || relatedArticles === null) {
