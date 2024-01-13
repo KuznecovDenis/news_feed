@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import './MainArticle.css';
 
 interface Props {
@@ -8,21 +9,22 @@ interface Props {
   category: string;
   description: string;
   source: string;
-  onArticleClick: (id: number) => void;
 }
 
-export const MainArticle: FC<Props> = ({ id, image, title, category, description, source, onArticleClick }) => {
+export const MainArticle: FC<Props> = ({ id, image, title, category, description, source }) => {
   return (
-    <article className="main-article" onClick={() => onArticleClick(id)}>
-      <div className="main-article__image-container">
-        <img className="main-article__image" src={image} alt={title} />
-      </div>
-      <div className="main-article__content">
-        <span className="article-category main-article__category">{category}</span>
-        <h2 className="main-article__title">{title}</h2>
-        <p className="main-article__text">{description}</p>
-        <span className="article-source main-article__source">{source}</span>
-      </div>
-    </article>
+    <Link to={`/article/${id}`} className={'main-article'}>
+      <article className="main-article__container">
+        <div className="main-article__image-container">
+          <img className="main-article__image" src={image} alt={title} />
+        </div>
+        <div className="main-article__content">
+          <span className="article-category main-article__category">{category}</span>
+          <h2 className="main-article__title">{title}</h2>
+          <p className="main-article__text">{description}</p>
+          <span className="article-source main-article__source">{source}</span>
+        </div>
+      </article>
+    </Link>
   );
 };

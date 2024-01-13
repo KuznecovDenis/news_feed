@@ -1,15 +1,30 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './Articles.css';
 import { MainArticle } from '../MainArticle/MainArticle';
 import { SmallArticle } from '../SmallArticle/SmallArticle';
 import { NewsAPI } from '../../types';
+import { categoryId } from '../../utils';
+import { useParams } from 'react-router-dom';
 
-interface Props {
-  articles: NewsAPI;
-  onArticleClick: (id: number) => void;
-}
+export const Articles = () => {
+  const { categories = 'index' }: { categories?: string | undefined } = useParams();
+  const [articles, setArticles] = React.useState<NewsAPI>({
+    items: [],
+    categories: [],
+    sources: [],
+  });
 
-export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
+  React.useEffect(() => {
+    fetch('https://frontend.karpovcourses.net/api/v2/ru/news/' + (categoryId[categories] || ''))
+      .then((response) => response.json())
+      .then((resData: NewsAPI) => {
+        setArticles(resData);
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
+  }, [categories]);
+
   return (
     <section className="articles">
       <div className="container grid">
@@ -20,7 +35,6 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
 
             return (
               <MainArticle
-                onArticleClick={onArticleClick}
                 key={item.id}
                 category={category ? category.name : ''}
                 source={source?.name || ''}
@@ -34,7 +48,7 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
           {articles.items.slice(3, 12).map((item) => {
             const source = articles.sources.find(({ id }) => item.source_id === id);
 
-            return <SmallArticle onArticleClick={onArticleClick} key={item.id} source={source?.name || ''} {...item} />;
+            return <SmallArticle key={item.id} source={source?.name || ''} {...item} />;
           })}
         </section>
       </div>
