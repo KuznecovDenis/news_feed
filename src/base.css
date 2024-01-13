@@ -1,35 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap");
 
 :root {
-    --color-primary: #262A2F;
-    --color-accent: #FF5533;
-    --color-grey: #868686;
-    --color-white: #FFFFFF;
-
-    --grid-column-width: 98px;
-    --grid-gap: 20px;
-    --container-width: 1400px
+  --color-primary: #262a2f;
+  --color-accent: #f53;
+  --color-grey: #868686;
+  --color-white: #fff;
+  --grid-column-width: 98px;
+  --grid-gap: 20px;
+  --container-width: 1400px;
 }
 
 * {
-    all: unset;
-    display: revert;
+  all: unset;
+  display: revert;
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
-    background-color: #EBEBEB;
-    font-size: 22px;
-    font-weight: 400;
+  font-family: Rubik, sans-serif;
+  background-color: #ebebeb;
+  font-size: 22px;
+  font-weight: 400;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(12, var(--grid-column-width));
-    gap: var(--grid-gap);
+  display: grid;
+  grid-template-columns: repeat(12, var(--grid-column-width));
+  gap: var(--grid-gap);
 }
 
 .container {
-    max-width: var(--container-width);
-    margin: 0 auto;
+  max-width: var(--container-width);
+  margin: 0 auto;
 }
