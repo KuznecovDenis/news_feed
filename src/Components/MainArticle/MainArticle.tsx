@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './MainArticle.css';
+import noPhotoPicture from '../../images/no-photo.svg';
 
 interface Props {
   id: number;
@@ -16,7 +17,7 @@ export const MainArticle: FC<Props> = ({ id, image, title, category, description
     <Link to={`/article/${id}`} className={'main-article'}>
       <article className="main-article__container">
         <div className="main-article__image-container">
-          <img className="main-article__image" src={image} alt={title} />
+          <img className="main-article__image" src={image.trim() || noPhotoPicture} alt={title} />
         </div>
         <div className="main-article__content">
           <span className="article-category main-article__category">{category}</span>

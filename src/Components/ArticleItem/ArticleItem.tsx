@@ -5,9 +5,11 @@ import { SingleLineTitleArticle } from '../SingleLineTitleArticle/SingleLineTitl
 import { Article, ArticleItemAPI, Category, RelatedArticlesAPI, Source } from '../../types';
 import { beautifyDate } from '../../utils';
 import { useParams } from 'react-router-dom';
+import { ArticleItemInfo } from './ArticleItemInfo/ArticleItemInfo';
+import noPhotoPicture from '../../images/no-photo.svg';
 
 export const ArticleItem = () => {
-  const { id } = useParams();
+  const { id }: { id?: string } = useParams();
   const [articleItem, setArticleItem] = React.useState<ArticleItemAPI | null>(null);
   const [relatedArticles, setRelatedArticles] = React.useState<Article[] | null>(null);
   const [categories, setCategories] = React.useState<Category[] | []>([]);
@@ -44,20 +46,29 @@ export const ArticleItem = () => {
     return null;
   }
 
+  const renderArticleItemInfo = (articleItem: ArticleItemAPI): React.ReactElement => {
+    return (
+      <ArticleItemInfo
+        categoryName={articleItem.category.name}
+        date={beautifyDate(articleItem.date)}
+        sourceLink={articleItem.link}
+        sourceName={articleItem.source?.name}
+        author={articleItem.author}
+      />
+    );
+  };
+
   return (
     <section className="article-page">
       <article className="article">
-        {articleItem.image.trim().length && (
+        {articleItem.image.trim().length !== 0 && (
           <section className="article__hero" style={{ backgroundImage: `url(${articleItem.image})` }}>
             <div className="container article__hero-content">
               <div className="grid">
                 <h1 className="article__hero-title">{articleItem.title}</h1>
               </div>
 
-              <div className="grid">
-                <span className="article-category article__category">{articleItem.category.name}</span>
-                <span className="article-date article__date">{beautifyDate(articleItem.date)}</span>
-              </div>
+              {renderArticleItemInfo(articleItem)}
             </div>
           </section>
         )}
@@ -68,10 +79,7 @@ export const ArticleItem = () => {
               <div className="article__title-container">
                 <h1 className="article__title">{articleItem.title}</h1>
 
-                <div className="grid">
-                  <span className="article-category article__category">{articleItem.category.name}</span>
-                  <span className="article-date article__date">{beautifyDate(articleItem.date)}</span>
-                </div>
+                {renderArticleItemInfo(articleItem)}
               </div>
             )}
 
@@ -90,7 +98,7 @@ export const ArticleItem = () => {
                   title={item.title}
                   category={category?.name || ''}
                   source={source?.name || ''}
-                  image={item.image}
+                  image={item.image.trim() || noPhotoPicture}
                 />
               );
             })}
@@ -111,7 +119,7 @@ export const ArticleItem = () => {
                 <SingleLineTitleArticle
                   key={item.id}
                   id={item.id}
-                  image={item.image}
+                  image={item.image.trim() || noPhotoPicture}
                   title={item.title}
                   text={item.description}
                   category={category?.name || ''}
