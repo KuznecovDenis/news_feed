@@ -5,6 +5,7 @@ import { SingleLineTitleArticle } from '../SingleLineTitleArticle/SingleLineTitl
 import { Article, ArticleItemAPI, Category, RelatedArticlesAPI, Source } from '../../types';
 import { beautifyDate } from '../../utils';
 import { useParams } from 'react-router-dom';
+import noPhotoPicture from '../../images/no-photo.svg';
 
 export const ArticleItem = () => {
   const { id } = useParams();
@@ -47,7 +48,7 @@ export const ArticleItem = () => {
   return (
     <section className="article-page">
       <article className="article">
-        {articleItem.image.trim().length && (
+        {articleItem.image.trim() && (
           <section className="article__hero" style={{ backgroundImage: `url(${articleItem.image})` }}>
             <div className="container article__hero-content">
               <div className="grid">
@@ -90,7 +91,7 @@ export const ArticleItem = () => {
                   title={item.title}
                   category={category?.name || ''}
                   source={source?.name || ''}
-                  image={item.image}
+                  image={item.image.trim() || noPhotoPicture}
                 />
               );
             })}
@@ -111,7 +112,7 @@ export const ArticleItem = () => {
                 <SingleLineTitleArticle
                   key={item.id}
                   id={item.id}
-                  image={item.image}
+                  image={item.image.trim() || noPhotoPicture}
                   title={item.title}
                   text={item.description}
                   category={category?.name || ''}
