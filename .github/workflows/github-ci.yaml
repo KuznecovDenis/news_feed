@@ -64,9 +64,9 @@ jobs:
       # Setup key
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.CICD_PRIVITE_KEY }}" >> "$HOME/.ssh/key"
+      - run: echo "${{ secrets.CICD_PRIVITE_KEY }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
-      - run: echo "${{ secrets.CICD_KNOWN_HOSTS }}" >> "$HOME/.ssh/known_hosts"
+      - run: echo "${{ secrets.CICD_KNOWN_HOSTS }}" > "$HOME/.ssh/known_hosts"
       - run: chmod 600 "$HOME/.ssh/known_hosts"
 
       # Deploy
