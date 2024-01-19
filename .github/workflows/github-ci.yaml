@@ -52,13 +52,14 @@ jobs:
     needs: [lint-code, build]
     environment:
       name: production
-      url: deniskyznecov.ru
+      url: http://deniskyznecov.ru
     steps:
       - uses: actions/checkout@v4
       - name: Download build artefacts
         uses: actions/download-artifact@v3
         with:
           name: production-build
+          path: dist
 
       # Setup key
       - run: set -eu
