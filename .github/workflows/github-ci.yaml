@@ -1,0 +1,71 @@
+name: production deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+concurrency: production
+
+jobs:
+  lint-code:
+    name: Check code-style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run eslint
+
+      - name: Run prettier-check
+        run: npm run prettier-check
+
+  build:
+    name: Build app
+    runs-on: ubuntu-latest
+    needs: [lint-code]
+    steps:
+      - name: Get code repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Production build
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-build
+
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    needs: [lint-code, build]
+    environment:
+      name: production
+      url: deniskyznecov.ru
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artefacts
+        uses: actions/download-artifact@v3
+        with:
+          name: production-build
+      # Setup key
+      - run: apk update && apk add rsync openssh
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.CICD_PRIVITE_KEY }}" >> "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+      - run: echo "${{ secrets.CICD_KNOWN_HOSTS }}" >> "$HOME/.ssh/known_hosts"
+      - run: chmod 600 "$HOME/.ssh/known_hosts"
+
+      # Deploy
+      - run: cd dist && rsync --archive --compress --delete . denis_ky@84.38.183.53:/home/denis_ky/testdeploy
