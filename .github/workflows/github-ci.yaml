@@ -70,4 +70,4 @@ jobs:
       - run: chmod 600 "$HOME/.ssh/known_hosts"
 
       # Deploy
-      - run: cd dist && rsync --archive --compress --delete . denis_ky@84.38.183.53:/home/denis_ky/testdeploy
+      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . denis_ky@84.38.183.53:/home/denis_ky/testdeploy
