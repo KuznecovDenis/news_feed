@@ -44,6 +44,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production-build
+          path: /dist
 
   deploy:
     name: Deploy to server
@@ -58,6 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: production-build
+          path: /dist
       # Setup key
       - run: apk update && apk add rsync openssh
       - run: set -eu
