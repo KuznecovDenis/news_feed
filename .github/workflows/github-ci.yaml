@@ -61,7 +61,6 @@ jobs:
           name: production-build
 
       # Setup key
-      - run: apk update && apk add rsync openssh
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
       - run: echo "${{ secrets.CICD_PRIVITE_KEY }}" >> "$HOME/.ssh/key"
