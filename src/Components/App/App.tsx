@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import './App.css';
 import { Articles } from '../Articles/Articles';
-import { Navigation } from '../Navigation/Navigation';
 import { ArticleItem } from '../ArticleItem/ArticleItem';
+import { Page } from '../Page/Page';
+import { AdminArticles } from '../AdminArticles/AdminArticles';
+import { AdminPage } from '../AdminPage/AdminPage';
+import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
 
 export const App = () => {
   const { pathname } = useLocation();
@@ -14,30 +16,61 @@ export const App = () => {
 
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <Navigation placement={'header'} className="header__navigation" />
-        </div>
-      </header>
+      <Routes>
+        <Route
+          path="/admin"
+          element={
+            <AdminPage>
+              <AdminArticles />
+            </AdminPage>
+          }
+        />
 
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Articles />} />
+        <Route
+          path="/admin/create"
+          element={
+            <AdminPage>
+              <AdminArticleItem />
+            </AdminPage>
+          }
+        />
 
-          <Route path="/:categories" element={<Articles />} />
-          <Route path="/article/:id" element={<ArticleItem />} />
-        </Routes>
-      </main>
+        <Route
+          path="/admin/edit/:id"
+          element={
+            <AdminPage>
+              <AdminArticleItem />
+            </AdminPage>
+          }
+        />
 
-      <footer className="footer">
-        <div className="container">
-          <Navigation placement="footer" className="footer__navigation" />
-          <div className="footer__column">
-            <p className="footer__text">CopyWrite</p>
-            <p className="footer__copyright">© 2024</p>
-          </div>
-        </div>
-      </footer>
+        <Route
+          path="/"
+          element={
+            <Page>
+              <Articles />
+            </Page>
+          }
+        />
+
+        <Route
+          path="/:categories"
+          element={
+            <Page>
+              <Articles />
+            </Page>
+          }
+        />
+
+        <Route
+          path="/article/:id"
+          element={
+            <Page>
+              <ArticleItem />
+            </Page>
+          }
+        />
+      </Routes>
     </>
   );
 };
