@@ -12,12 +12,12 @@ export const AdminArticles = () => {
   return (
     <>
       <Grid container spacing={2} sx={{ mt: 4 }}>
-        <Grid xs={9}>
+        <Grid item xs={9}>
           <Typography variant={'h4'} gutterBottom>
             Партнерские статьи
           </Typography>
         </Grid>
-        <Grid xs={3}>
+        <Grid item xs={3}>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant="contained" color="success" component={Link} to="/admin/create">
               Добавить новую
