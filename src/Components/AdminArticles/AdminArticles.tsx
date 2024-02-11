@@ -5,10 +5,22 @@ import { Button, CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { IPartnerArticle } from '../../types';
+import { getPartnersArticles } from '../../api';
 
 export const AdminArticles = () => {
+  const [articles, setArticles] = useState<IPartnerArticle[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const articles = await getPartnersArticles();
+
+      setArticles(articles);
+    })();
+  }, []);
+
   return (
     <>
       <Grid container spacing={2} sx={{ mt: 4 }}>
@@ -27,18 +39,17 @@ export const AdminArticles = () => {
       </Grid>
 
       <Grid container spacing={2}>
-        {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-          <Grid item xs={3} key={item}>
-            <Card sx={{ maxWidth: 345 }} key={item}>
-              <CardActionArea component={Link} to={`/admin/edit/${item}`}>
-                <CardMedia component="img" height="140" image={'https://loremflickr.com/320/240/dog/all'} alt="dog" />
+        {articles.map((item) => (
+          <Grid item xs={3} key={item.id}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea component={Link} to={`/admin/edit/${item.id}`}>
+                <CardMedia component="img" height="140" image={item.image} alt={item.title} />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Красивый Пес
+                    {item.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Какой-то текст о том какие красивые бывают песики и какие они умнички Этот текст в несколько строк,
-                    а может быть в три строки
+                    {item.description}
                   </Typography>
                 </CardContent>
               </CardActionArea>

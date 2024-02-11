@@ -54,8 +54,8 @@ export const getErrors = async (data: [InputName, FormDataEntryValue][]): Promis
           break;
         }
 
-        if (value.length > 20) {
-          errors[name] = 'Название должно быть до 20 символов';
+        if (value.length > 120) {
+          errors[name] = 'Название должно быть до 120 символов';
         }
         break;
       }
