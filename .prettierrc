@@ -5,7 +5,8 @@
     {
       "files": "*.css",
       "options": {
-        "singleQuote": false
+        "singleQuote": false,
+        "tabWidth": 2
       }
     }
   ]
