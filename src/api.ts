@@ -1,4 +1,5 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import {
   addDoc,
   collection,
@@ -15,8 +16,8 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { IPartnerArticle } from './types';
 
-export const initializeAPI = (): void => {
-  initializeApp({
+export const initializeAPI = (): FirebaseApp => {
+  const firebaseApp = initializeApp({
     apiKey: 'AIzaSyDelkUd00V2tDNO5NQwESzCnK4xXCp3Uzo',
     authDomain: 'news-feed-ba258.firebaseapp.com',
     projectId: 'news-feed-ba258',
@@ -25,8 +26,11 @@ export const initializeAPI = (): void => {
     appId: '1:241774285330:web:fcf52150f0fb7345253ecb',
   });
 
-  getFirestore();
-  getStorage();
+  getAuth(firebaseApp);
+  getFirestore(firebaseApp);
+  getStorage(firebaseApp);
+
+  return firebaseApp;
 };
 
 initializeAPI();

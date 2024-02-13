@@ -6,6 +6,8 @@ import { Page } from '../Page/Page';
 import { AdminArticles } from '../AdminArticles/AdminArticles';
 import { AdminPage } from '../AdminPage/AdminPage';
 import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
+import { PrivetRoute } from '../PrivetRoute/PrivetRoute';
+import { LoginContainer } from '../../Features/Auth/Login/LoginContainer';
 
 export const App = () => {
   const { pathname } = useLocation();
@@ -18,29 +20,44 @@ export const App = () => {
     <>
       <Routes>
         <Route
+          path="/login"
+          element={
+            <Page>
+              <LoginContainer />
+            </Page>
+          }
+        />
+
+        <Route
           path="/admin"
           element={
-            <AdminPage>
-              <AdminArticles />
-            </AdminPage>
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticles />
+              </AdminPage>
+            </PrivetRoute>
           }
         />
 
         <Route
           path="/admin/create"
           element={
-            <AdminPage>
-              <AdminArticleItem />
-            </AdminPage>
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            </PrivetRoute>
           }
         />
 
         <Route
           path="/admin/edit/:id"
           element={
-            <AdminPage>
-              <AdminArticleItem />
-            </AdminPage>
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            </PrivetRoute>
           }
         />
 

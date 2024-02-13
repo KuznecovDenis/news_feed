@@ -52,7 +52,7 @@ jobs:
     needs: [lint-code, build]
     environment:
       name: production
-      url: http://deniskyznecov.ru
+      url: https://deniskyznecov.ru
     steps:
       - uses: actions/checkout@v4
       - name: Download build artefacts

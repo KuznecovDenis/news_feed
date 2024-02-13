@@ -3,7 +3,10 @@
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": ["dom", "es2017", "dom.iterable"]
+    "lib": ["dom", "es2017", "dom.iterable"],
+    "paths": {
+      "@components/*": ["./src/Components/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

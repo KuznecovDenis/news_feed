@@ -14,6 +14,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.jsx', '.tsx', '.ts', '.js', '.json', '.wasm', '...'],
+    alias: {
+      '@components': path.resolve('./src/Components'),
+    },
   },
   devServer: {
     open: true,
