@@ -5,6 +5,7 @@ import { SmallArticle } from '../SmallArticle/SmallArticle';
 import { NewsAPI } from '../../types';
 import { categoryId } from '../../utils';
 import { useParams } from 'react-router-dom';
+import { PartnerArticle } from '../PartnerArticle/PartnerArticle';
 
 export const Articles = () => {
   const { categories = 'index' }: { categories?: string | undefined } = useParams();
@@ -51,6 +52,10 @@ export const Articles = () => {
             return <SmallArticle key={item.id} source={source?.name || ''} {...item} />;
           })}
         </section>
+      </div>
+
+      <div className="articles__partner-article">
+        <PartnerArticle />
       </div>
     </section>
   );

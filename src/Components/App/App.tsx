@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import './App.css';
 import { Articles } from '../Articles/Articles';
-import { Navigation } from '../Navigation/Navigation';
 import { ArticleItem } from '../ArticleItem/ArticleItem';
+import { Page } from '../Page/Page';
+import { AdminArticles } from '../AdminArticles/AdminArticles';
+import { AdminPage } from '../AdminPage/AdminPage';
+import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
+import { PrivetRoute } from '../PrivetRoute/PrivetRoute';
+import { LoginContainer } from '../../Features/Auth/Login/LoginContainer';
 
 export const App = () => {
   const { pathname } = useLocation();
@@ -14,30 +18,76 @@ export const App = () => {
 
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <Navigation placement={'header'} className="header__navigation" />
-        </div>
-      </header>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <Page>
+              <LoginContainer />
+            </Page>
+          }
+        />
 
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Articles />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticles />
+              </AdminPage>
+            </PrivetRoute>
+          }
+        />
 
-          <Route path="/:categories" element={<Articles />} />
-          <Route path="/article/:id" element={<ArticleItem />} />
-        </Routes>
-      </main>
+        <Route
+          path="/admin/create"
+          element={
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            </PrivetRoute>
+          }
+        />
 
-      <footer className="footer">
-        <div className="container">
-          <Navigation placement="footer" className="footer__navigation" />
-          <div className="footer__column">
-            <p className="footer__text">CopyWrite</p>
-            <p className="footer__copyright">© 2024</p>
-          </div>
-        </div>
-      </footer>
+        <Route
+          path="/admin/edit/:id"
+          element={
+            <PrivetRoute>
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            </PrivetRoute>
+          }
+        />
+
+        <Route
+          path="/"
+          element={
+            <Page>
+              <Articles />
+            </Page>
+          }
+        />
+
+        <Route
+          path="/:categories"
+          element={
+            <Page>
+              <Articles />
+            </Page>
+          }
+        />
+
+        <Route
+          path="/article/:id"
+          element={
+            <Page>
+              <ArticleItem />
+            </Page>
+          }
+        />
+      </Routes>
     </>
   );
 };
