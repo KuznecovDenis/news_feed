@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import './base.css';
 import { BrowserRouter } from 'react-router-dom';
-import { App } from './Components/App/App';
+import { App } from '@components/App/App';
 import { initializeAPI } from './api';
 import { AuthContextProvider } from './Features/Auth/AuthContextProvider';
 

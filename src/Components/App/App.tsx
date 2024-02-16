@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Articles } from '../Articles/Articles';
-import { ArticleItem } from '../ArticleItem/ArticleItem';
+import { ArticlePage } from '@components/ArticlePage/ArticlePage';
 import { Page } from '../Page/Page';
 import { AdminArticles } from '../AdminArticles/AdminArticles';
 import { AdminPage } from '../AdminPage/AdminPage';
 import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
 import { PrivetRoute } from '../PrivetRoute/PrivetRoute';
 import { LoginContainer } from '../../Features/Auth/Login/LoginContainer';
+import { CategoryPage } from '@components/CategoryPage/CategoryPage';
+import { HomePage } from '@components/HomePage/HomePage';
 
 export const App = () => {
   const { pathname } = useLocation();
@@ -65,16 +66,16 @@ export const App = () => {
           path="/"
           element={
             <Page>
-              <Articles />
+              <HomePage />
             </Page>
           }
         />
 
         <Route
-          path="/:categories"
+          path="/:category"
           element={
             <Page>
-              <Articles />
+              <CategoryPage />
             </Page>
           }
         />
@@ -83,7 +84,7 @@ export const App = () => {
           path="/article/:id"
           element={
             <Page>
-              <ArticleItem />
+              <ArticlePage />
             </Page>
           }
         />
