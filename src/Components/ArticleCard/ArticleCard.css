@@ -49,7 +49,6 @@
   display: flex;
   align-items: baseline;
   margin-top: auto;
-  color: var(--color-primary);
 }
 
 .article-card__category {

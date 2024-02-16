@@ -1,7 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const EslintWebpackPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
+
+const mode = process.env.NODE_ENV || 'production';
 
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
@@ -12,6 +15,9 @@ module.exports = {
     publicPath: '/',
     clean: true,
   },
+  optimization: {
+    runtimeChunk: mode === 'production' ? false : 'single',
+  },
   resolve: {
     extensions: ['.jsx', '.tsx', '.ts', '.js', '.json', '.wasm', '...'],
     alias: {
@@ -20,6 +26,10 @@ module.exports = {
   },
   devServer: {
     open: true,
+    client: {
+      overlay: false,
+    },
+    hot: true,
     historyApiFallback: {
       disableDotRule: true,
     },
@@ -38,7 +48,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.svg$/i,
@@ -49,6 +59,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'bundle.[contenthash].css',
     }),
     // new StylelintWebpackPlugin({
     //   files: '{**/*,*}.ccs',
