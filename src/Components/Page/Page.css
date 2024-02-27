@@ -9,6 +9,10 @@
   margin-left: 24px;
 }
 
+.header__controls {
+  margin-left: auto;
+}
+
 .footer {
   flex-shrink: 0;
   margin-top: 64px;
