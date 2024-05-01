@@ -1,31 +1,38 @@
 import React, { FC } from 'react';
 import './Navigation.css';
-import { categoryName } from '../../utils';
-import logo from '../../images/logo.svg';
-import { Link, NavLink } from 'react-router-dom';
+import { categoryTitles } from '../../utils';
+import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
   className?: string;
-  placement: 'header' | 'footer';
+}
+
+interface NavigationItemProps {
+  title?: string;
+  name?: string;
 }
 
 const activeClassName = ({ isActive }: { isActive: boolean }) =>
-  isActive ? 'navigation__link navigation__link--active' : 'navigation__link';
+  isActive ? 'navigation__link--active navigation__link' : 'navigation__link';
 
-export const Navigation: FC<Props> = ({ className = '', placement = 'header' }) => {
+const NavigationItem: FC<NavigationItemProps> = ({ title, name = '' }) => {
   return (
-    <nav className={`navigation grid navigation--${placement} ${className}`}>
-      <Link to={'/'} className="navigation__logo">
-        <img className="navigation__image" src={logo} alt="Логотип" />
-      </Link>
+    <li className="navigation__item" key={name}>
+      <NavLink to={`/${name}`} className={activeClassName}>
+        {title}
+      </NavLink>
+    </li>
+  );
+};
+
+export const Navigation: FC<Props> = ({ className = '' }) => {
+  return (
+    <nav className={classNames('navigation', className)}>
       <ul className="navigation__list">
-        {['index', 'fashion', 'tech', 'politics', 'sport'].map((item) => (
-          <li className="navigation__item" key={item}>
-            <NavLink to={item === 'index' ? '/' : `/${item}`} className={activeClassName}>
-              {categoryName[item]}
-            </NavLink>
-          </li>
-        ))}
+        {Object.entries(categoryTitles).map(([name, title]) => {
+          return <NavigationItem key={name} name={name} title={title} />;
+        })}
       </ul>
     </nav>
   );

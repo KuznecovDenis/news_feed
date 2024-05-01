@@ -25,11 +25,19 @@ export interface RelatedArticlesAPI {
 export interface Source {
   id: number;
   name: string;
+  site?: string;
+}
+
+export type CategoryNames = 'politics' | 'sport' | 'tech' | 'karpov.courses' | 'fashion' | 'other';
+
+export interface Source {
+  id: number;
+  name: string;
 }
 
 export interface Category {
   id: number;
-  name: string;
+  name: CategoryNames;
 }
 
 export interface Article {
@@ -41,4 +49,17 @@ export interface Article {
   image: string;
   source_id: number;
   category_id: number;
+}
+
+export interface IPartnerArticle {
+  id: string;
+  'company-name': string;
+  title: string;
+  description: string;
+  text: string;
+  image: string;
+  created: {
+    nanoseconds: number;
+    seconds: number;
+  };
 }
