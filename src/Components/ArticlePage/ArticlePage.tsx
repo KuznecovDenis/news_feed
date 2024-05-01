@@ -65,7 +65,6 @@ export const ArticlePage = () => {
           <div className="article-page__sidebar">
             {relatedArticles.slice(3, 9).map((item) => {
               const source = sources.find(({ id }) => item.source_id === id);
-
               return (
                 <SidebarArticleCard
                   className="article-page__sidebar-item"
@@ -74,7 +73,7 @@ export const ArticlePage = () => {
                   id={item.id}
                   title={item.title}
                   source={source?.name || ''}
-                  image={item.image}
+                  image={item.image || noPhotoPicture}
                 />
               );
             })}

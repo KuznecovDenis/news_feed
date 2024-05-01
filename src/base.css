@@ -63,8 +63,7 @@ body {
   flex-direction: column;
 }
 
-main,
-.main {
+main {
   flex-grow: 1;
 }
 

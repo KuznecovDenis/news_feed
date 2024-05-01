@@ -55,7 +55,7 @@ export const CategoryPage: FC = () => {
             return (
               <SidebarArticleCard
                 className="category-page__sidebar-item"
-                image={item.image}
+                image={item.image || noPhotoPicture}
                 key={item.id}
                 id={item.id}
                 title={item.title}
